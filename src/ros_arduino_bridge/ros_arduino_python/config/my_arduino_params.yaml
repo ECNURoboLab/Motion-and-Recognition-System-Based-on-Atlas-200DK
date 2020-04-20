@@ -1,0 +1,58 @@
+# For a direct USB cable connection, the port name is typically
+# /dev/ttyACM# where is # is a number such as 0, 1, 2, etc
+# For a wireless connection like XBee, the port is typically
+# /dev/ttyUSB# where # is a number such as 0, 1, 2, etc.
+
+port: /dev/ttyACM0
+i2c_addr: 0x08
+baud: 57600
+timeout: 0.5
+
+rate: 25
+sensorstate_rate: 10
+
+cmd_topic: cmd_vel
+
+base_controller_rate: 20.0
+base_controller_timeout: 0.7
+
+# For a robot that uses base_footprint, change base_frame to base_footprint
+base_frame: base_footprint
+odom_name: odom
+
+# === Robot drivetrain parameters
+wheel_diameter: 0.058
+wheel_track: 0.114   #L value
+encoder_resolution: 11 #12V DC motors
+gear_reduction: 46
+debugPID: False
+linear_scale_correction: 0.9885
+angular_scale_correction: 1.00
+
+# === PID parameters
+accel_limit: 0.05
+
+AWheel_Kp: 15
+AWheel_Kd: 15
+AWheel_Ki: 0
+AWheel_Ko: 50
+
+BWheel_Kp: 15
+BWheel_Kd: 15
+BWheel_Ki: 0
+BWheel_Ko: 50
+
+CWheel_Kp: 15
+CWheel_Kd: 15
+CWheel_Ki: 0
+CWheel_Ko: 50
+
+# === Sensor definitions.  Examples only - edit for your robot.
+#     Sensor type can be one of the follow (case sensitive!):
+#	  * GP2D12
+#	  * Analog
+#	  * Digital
+sensors: {
+  #antiDropIR_front: {pin: 22, type: Digital, rate: 5, direction: input},
+}
+

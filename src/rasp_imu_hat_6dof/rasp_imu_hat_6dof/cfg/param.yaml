@@ -1,0 +1,4 @@
+pub_data_topic: imu_data
+pub_temp_topic: imu_temp
+link_name: base_imu_link
+pub_hz: 10

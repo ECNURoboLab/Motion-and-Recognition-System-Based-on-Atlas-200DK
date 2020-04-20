@@ -1,0 +1,34 @@
+#######################################################################
+# Copyright: 2016-2018(c) ROS小课堂 www.corvin.cn
+#######################################################################
+# Author: corvin
+#######################################################################
+# Description:
+#  该参数文件是为校准小车的角速度而设置，大家可以根据需要酌情来修改各
+#  个参数，各参数功能介绍分别是：
+#  test_circle:测试小车需要转动的圈数,默认2,正转2圈。
+#  angular_speed:小车转动时的角速度多大,default 0.2rad/s。
+#  tolerance_angle:在测试转动时可以容忍的误差,默认0.05弧度。
+#  angular_scale:校准小车在转动时的精度,根据小车实际转动的角度除以规定
+#    的角度得到结果作为新的angular_scale值，再一次运行，根据这次的误差
+#    乘以angular_scale作为这次的新angular_scale，一直测试直到最终实际
+#    角度达到预期。
+#  check_odom_rate:while循环查询转动角度的频率.
+#  cmd_topic:控制小车移动的话题.
+#  base_frame:小车的基坐标系。
+#  odom_frame:小车里程计的坐标系。
+#######################################################################
+# History:
+#  20180111:初始化该参数文件。
+#  20180206:增加angular_scale配置参数。
+#  20180425:将test_angle测试角度改为test_circle,直接指定测试几圈,
+#      将角速度从0.5rad/s改为0.2rad/s,tolerance_angel从0.03->0.05.
+#######################################################################
+test_circle: 2 #test run circle
+angular_speed: 0.2  #default 0.2rad/s
+tolerance_angle: 0.04 #tolerance radians
+angular_scale: 1.00
+check_odom_rate: 15 #check odom rate
+cmd_topic: /cmd_vel
+base_frame: base_footprint
+odom_frame: odom

@@ -1,0 +1,28 @@
+<!--
+ Copyright: 2016-2018 ROS小课堂 www.corvin.cn
+ Author: corvin
+ Description:该launch文件是用于对三轮全向移动小车底盘的线速度进行标定.通过设置往前移动的
+   指定距离,然后实地测量小车底盘的实际移动距离与设定的移动距离的误差.根据该误差修正配置
+   参数,从而可以减小该误差,使小车底盘移动距离更准确,为后面的自动导航做好准备工作.
+   该启动文件主要启动流程如下:
+   1.启动小车的urdf文件,这样方便在RViz中查看整个标定过程.
+   2.启动小车控制底盘移动的上位机程序.
+   3.启动标定程序,从配置文件中读取测试移动距离、移动速度、控制移动的话题等配置信息.
+     根据该信息来控制小车移动,测试完成后,需要拿出米尺来测量小车的实际移动距离与配置
+     的移动距离的差值,然后标定程序会根据测量值来修正配置参数,直到实际的移动距离与配
+     置的移动距离之间的误差在可容忍范围内即可.最后的linear_scale参数就是最终的标定参数,
+     到这里线速度标定过程完毕,最后我们将linear_scale写入到控制小车移动的上位机配置文件中即可.
+ History:
+   20180907:initial this comment.
+-->
+<launch>
+    <!--startup robot urdf description -->
+    <include file="$(find robot_description)/launch/robot_description.launch"/>
+
+    <!--startup mobilebase arduino launch -->
+    <include file="$(find ros_arduino_python)/launch/arduino.launch" />
+
+    <node pkg="robot_calibration" type="calibrate_mobilebase_linear.py" name="calibrate_mobilebase_linear" output="screen">
+        <rosparam file="$(find robot_calibration)/config/linear_calibrate_params.yaml" command="load" />
+    </node>
+</launch>

@@ -1,0 +1,11 @@
+<!--
+  Copyright: 2016-2018 ROS小课堂 www.corvin.cn
+  Author: corvin
+  Description:可以在小车的线速度和角速度标定过程中，在rviz中查看整个过程.
+  History:
+    20180915: initial this file.
+-->
+<launch>
+  <!-- startup rviz with config file -->
+  <node name="rviz" type="rviz" pkg="rviz" args="-d $(find robot_calibration)/config/rviz_config.rviz" />
+</launch>

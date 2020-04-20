@@ -1,0 +1,21 @@
+<!--
+  Copyright(C): 2016-2018 ROS小课堂 www.corvin.cn
+  Author: corvin
+  Description:
+    进行小车底盘角速度标定的launch启动文件,首先启动小车的urdf描述启动文件,用于在
+    rviz中进行查看标定过程.然后启动控制底盘移动的launch文件,最后启动角速度标定的
+    python脚本,并且启动时要加载相应配置参数.
+  History:
+    20180425: init this file.
+-->
+<launch>
+  <!--startup robot urdf description file-->
+  <include file="$(find robot_description)/launch/robot_description.launch" />
+
+  <!--startup mobilebase arduino launch -->
+  <include file="$(find ros_arduino_python)/launch/arduino.launch" />
+
+  <node pkg="robot_calibration" type="calibrate_mobilebase_angular.py" name="calibrate_angular_node" output="screen" >
+    <rosparam file="$(find robot_calibration)/config/angular_calibrate_params.yaml" command="load" />
+  </node>
+</launch>

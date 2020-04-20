@@ -1,0 +1,35 @@
+<!--
+  Copyright: 2016-2019 ROS小课堂 www.corvin.cn
+  Description:robot启动时最先需要启动的launch文件，主要加载各基础功能模块启动。
+  History:
+    20190722:init this file.
+-->
+<launch>
+    <!-- (1) startup robot urdf description -->
+    <include file="$(find robot_description)/launch/robot_description.launch" />
+
+    <!-- (2) startup mobilebase arduino launch -->
+    <include file="$(find ros_arduino_python)/launch/arduino.launch" />
+
+   <!-- (3) startup imu-6dof board -->
+   <include file="$(find rasp_imu_hat_6dof)/launch/imu_data_pub.launch" />
+
+   <!-- (4) startup robot_pose_ekf node-->
+   <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+      <param name="output_frame" value="odom_combined" />
+      <param name="freq" value="10.0" />
+      <param name="sensor_timeout" value="1.0" />
+      <param name="odom_used" value="true" />
+      <param name="imu_used" value="true" />
+      <param name="vo_used" value="false" />
+      <param name="debug" value="false" />
+      <param name="self_diagnose" value="false" />
+   </node>
+
+   <!-- (5) /odom_combined view in rviz-->
+   <node pkg="robot_bringup" type="odom_ekf.py" name="odom_ekf" output="screen">
+      <remap from="input"  to="/robot_pose_ekf/odom_combined" />
+      <remap from="output" to="/odom_ekf" />
+   </node>
+</launch>
+

@@ -1,0 +1,4 @@
+<launch>
+   <!-- startup rviz to show hector mapping process -->
+  <node name="rviz" type="rviz" pkg="rviz" args="-d $(find robot_navigation)/rviz/hector_view.rviz" />
+</launch>
